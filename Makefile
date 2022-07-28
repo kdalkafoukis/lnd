@@ -76,6 +76,8 @@ define print
 	echo $(GREEN)$1$(NC)
 endef
 
+ANDROID_API := 32
+
 default: scratch
 
 all: scratch check install
@@ -316,7 +318,7 @@ macos: vendor mobile-rpc
 android: vendor mobile-rpc
 	@$(call print, "Building Android library ($(ANDROID_BUILD)).")
 	mkdir -p $(ANDROID_BUILD_DIR)
-	$(GOMOBILE_BIN) bind -target=android -tags="mobile $(DEV_TAGS) $(RPC_TAGS)" $(LDFLAGS) -v -o $(ANDROID_BUILD) $(MOBILE_PKG)
+	$(GOMOBILE_BIN) bind -target=android -androidapi=$(ANDROID_API) -tags="mobile $(DEV_TAGS) $(RPC_TAGS)" $(LDFLAGS) -v -o $(ANDROID_BUILD) $(MOBILE_PKG)
 
 mobile: ios android
 
